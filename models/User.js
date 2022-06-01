@@ -13,14 +13,19 @@ const UserSchema = new Schema({
         required: true,
         unique: true
     },
-    thoughts: {
+    thoughts: [{
         type: Schema.Types.ObjectId,
         ref: 'Thought'
-    },
-    friends: {
+    }],
+    friends: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }
+    }]
+});
+
+// get total count of thoughts on retrieval
+UserSchema.virtual('thoughtCount').get(function () {
+    return this.thoughts.length;
 });
 
 
