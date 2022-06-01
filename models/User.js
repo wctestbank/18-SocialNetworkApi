@@ -21,11 +21,23 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     }]
-});
+},
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        id: false
+    }
+);
 
 // get total count of thoughts on retrieval
 UserSchema.virtual('thoughtCount').get(function () {
     return this.thoughts.length;
+});
+
+// get total count of friends on retrieval
+UserSchema.virtual('friendCount').get(function () {
+    return this.friends.length;
 });
 
 
